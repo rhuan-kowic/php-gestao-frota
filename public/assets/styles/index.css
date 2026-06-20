@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.dashboard {
+  padding: 2rem;
+  color: #eaf6ff;
+}
+
+.dashboard h1 {
+  margin-bottom: 2rem;
+  color: #7ec8ff;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+}
+
+.aside-climate {
+  background: #1b2940;
+  border: 2px solid #7ec8ff;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.vehicles-list {
+  background: #1b2940;
+  border: 2px solid #7ec8ff;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-add {
+  background: #7ec8ff;
+  color: #1b2940;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-add:hover {
+  background: #9dd9ff;
+  transform: translateY(-2px);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #2d4b73;
+  color: #ffffff;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  border-top: 1px solid #3d5d88;
+  color: #ffffff;
+}
+
+tr:hover {
+  background: rgba(126, 200, 255, 0.1);
+}
