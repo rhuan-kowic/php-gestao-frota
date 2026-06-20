@@ -1,0 +1,10 @@
+CREATE  DATABASE gestao_frota_db;
+USE gestao_frota_db;
+
+CREATE TABLE vehicles(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+type VARCHAR(30) NOT NULL,
+status VARCHAR(20) NOT NULL
+);
+
