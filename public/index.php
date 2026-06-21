@@ -3,6 +3,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="./scripts/index.js" defer></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -31,6 +32,7 @@
                 + Adicionar Veículo
               </button>
             </div>
+
             <div class="table-responsive">
               <table class="table table-dark table-hover align-middle mb-0">
                 <thead>
@@ -42,27 +44,10 @@
                     <th class="text-center">Ações</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>CAM-01</td>
-                    <td>Truck</td>
-                    <td>
-                      <span class="badge bg-success">
-                        Em Operação
-                      </span>
-                    </td>
-                    <td class="text-center">
-                      <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
 
-                      <button class="btn btn-sm btn-outline-danger" title="Excluir">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
+                <tbody id="table-vehicles-body">
                 </tbody>
+
               </table>
             </div>
           </div>
@@ -70,7 +55,6 @@
       </section>
     </div>
   </main>
-
   <?php require "footer.php"; ?>
 
 </body>
