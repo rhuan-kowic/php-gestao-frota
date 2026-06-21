@@ -70,5 +70,25 @@ class VehiclesController
       return json_encode(["error" => "Falha ao criar veículo: " . $e->getMessage()], JSON_UNESCAPED_UNICODE);
     }
   }
-};
 
+  public function destroy(int $id)
+  {
+    try {
+
+      $sql = "DELETE FROM vehicles WHERE id = :id;";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->execute(["id" => $id]);
+
+      if ($stmt->rowCount() === 0) {
+        http_response_code(404);
+        return json_encode(["error" => "Veículo não encontrado ou já excluído."], JSON_UNESCAPED_UNICODE);
+      }
+
+      http_response_code(204);
+      return json_encode([]);
+    } catch (PDOException $e) {
+      http_response_code(500);
+      return json_encode(["error" => "Falha ao excluir o veículo: " . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+  }
+};
