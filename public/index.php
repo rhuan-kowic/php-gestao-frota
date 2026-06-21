@@ -1,70 +1,76 @@
-<link rel="stylesheet" href="./assets/styles/index.css">
+<head>
+  <link rel="stylesheet" href="./assets/styles/index.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+</head>
 
-<body>
-    <header>
-        <?php require "navbar.php"; ?>
-    </header>
-
-    <main class="dashboard">
-
-        <h1>Painel de Controle</h1>
-
-        <div class="dashboard-grid">
-
-            <aside class="aside-climate">
-                <h2>Clima</h2>
-                <p>☀️ 28°C</p>
-                <p>Condição: Ensolarado</p>
-            </aside>
-
-            <section class="vehicles-list">
-
-                <div class="section-header">
-                    <h2>Veículos</h2>
-                    <button class="btn-add">
-                        + Adicionar Veículo
-                    </button>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Tipo</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>CAM-01</td>
-                            <td>Truck</td>
-                            <td>Em Operação</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>ESC-05</td>
-                            <td>Escavadeira</td>
-                            <td>Em Manutenção</td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>PER-02</td>
-                            <td>Perfuratriz</td>
-                            <td>Disponível</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </section>
-
+<body class="d-flex flex-column min-vh-100">
+  <header>
+    <?php require "navbar.php"; ?>
+  </header>
+  <main class="container-fluid py-4 px-3 flex-grow-1">
+    <h1 class="mb-4 text-info">Painel de Controle</h1>
+    <div class="row g-4">
+      <aside class="col-12 col-xl-2">
+        <div class="card bg-dark text-light border-info h-100">
+          <div class="card-body">
+            <h2 class="h5">Clima</h2>
+            <p class="mb-1">☀️ 28°C</p>
+            <p class="mb-0">Condição: Ensolarado</p>
+          </div>
         </div>
+      </aside>
 
-    </main>
+      <section class="col-12 col-xl-10">
+        <div class="card bg-dark text-light border-info">
+          <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+              <h2 class="h5 mb-0">Veículos</h2>
+              <button class="btn btn-info">
+                + Adicionar Veículo
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th class="text-center">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>CAM-01</td>
+                    <td>Truck</td>
+                    <td>
+                      <span class="badge bg-success">
+                        Em Operação
+                      </span>
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
 
-    <?php require "footer.php"; ?>
+                      <button class="btn btn-sm btn-outline-danger" title="Excluir">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <?php require "footer.php"; ?>
+
 </body>
