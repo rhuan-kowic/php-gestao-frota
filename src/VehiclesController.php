@@ -9,7 +9,6 @@ class VehiclesController
 
   public function index()
   {
-    header('Content-Type: application/json; charset=utf-8');
     try {
       $sql = "SELECT * FROM vehicles;";
       $stmt = $this->pdo->prepare($sql);
@@ -25,7 +24,6 @@ class VehiclesController
 
   public function show(int $id)
   {
-    header('Content-Type: application/json; charset=utf-8');
     try {
       $sql = "SELECT * FROM vehicles WHERE id = :id;";
       $stmt = $this->pdo->prepare($sql);
@@ -89,6 +87,35 @@ class VehiclesController
     } catch (PDOException $e) {
       http_response_code(500);
       return json_encode(["error" => "Falha ao excluir o veículo: " . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+  }
+
+  public function updateStatus(int $id, string $status)
+  {
+    try {
+      $statusLimpo = trim($status);
+
+      if (empty($statusLimpo) || mb_strlen($statusLimpo) < 3) {
+        http_response_code(400);
+        return json_encode(["error" => "O campo status é obrigatório e deve ter pelo menos 3 caracteres."], JSON_UNESCAPED_UNICODE);
+      }
+
+      $sql = "UPDATE vehicles SET status = :status WHERE id = :id;";
+      $stmt = $this->pdo->prepare($sql);
+
+      $stmt->execute([
+        "status" => $statusLimpo,
+        "id" => $id
+      ]);
+
+      if ($stmt->rowCount() === 0) {
+        http_response_code(404);
+        return json_encode(["error" => "Veículo não encontrado ou o status já é o atual."], JSON_UNESCAPED_UNICODE);
+      }
+      return json_encode(["message" => "Status atualizado com sucesso."], JSON_UNESCAPED_UNICODE);
+    } catch (PDOException $e) {
+      http_response_code(500);
+      return json_encode(["error" => "Falha ao atualizar o status do veículo: " . $e->getMessage()], JSON_UNESCAPED_UNICODE);
     }
   }
 };
