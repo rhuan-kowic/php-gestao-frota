@@ -1,5 +1,8 @@
 const tableBody = document.getElementById("table-vehicles-body");
 const createVehicleForm = document.getElementById("form-create-vehicle");
+
+const statusOptions = ["Disponível", "Em Operação", "Em Manutenção", "Inativo"];
+
 async function getVehicles() {
   try {
     const result = await fetch("http://localhost:8000/api.php");
@@ -52,9 +55,10 @@ async function renderVehicles() {
         </span>
       </td>
       <td class="text-center">
-        <button class="btn btn-sm btn-outline-primary me-1" title="Editar" onclick="editar(${vehicle.id})">
-          <i class="bi bi-pencil-square"></i>
-        </button>
+        <button class="btn btn-sm btn-outline-primary me-1" title="Editar" 
+    onclick="abrirModalAtualizacao(${vehicle.id}, '${vehicle.name}', '${vehicle.status}')">
+    <i class="bi bi-pencil-square"></i>
+</button>
         <button class="btn btn-sm btn-outline-danger" title="Excluir" onclick="destroyVehicle(${vehicle.id})">
           <i class="bi bi-trash"></i>
         </button>
@@ -111,6 +115,49 @@ async function destroyVehicle(id) {
   } catch (err) {
     console.error("Falha na comunicação com a API: ", err);
   }
+}
+
+async function updateStatus(id, newStatus) {
+  try {
+    const response = await fetch(`http://localhost:8000/api.php?id=${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newStatus }),
+    });
+
+    if (response.ok) {
+      renderVehicles();
+    } else {
+      console.error(
+        "Erro ao atualizar status do veículo: ",
+        response.statusText,
+      );
+    }
+  } catch (err) {
+    console.error("Falha na comunicação com a API: ", err);
+  }
+}
+
+function abrirModalAtualizacao(id, name, status) {
+  const modalElement = document.getElementById("modalUpdateVehicle");
+  const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+  document.getElementById("update-id").value = id;
+  document.getElementById("update-name").value = name;
+  document.getElementById("update-status").value = status;
+
+  modal.show();
+
+  const form = document.getElementById("form-update-vehicle");
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const newStatus = formData.get("status");
+    await updateStatus(id, newStatus);
+    modal.hide();
+  };
 }
 
 renderVehicles();

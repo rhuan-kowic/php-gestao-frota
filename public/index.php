@@ -14,6 +14,7 @@
     <h1 class="mb-4 text-info">Painel de Controle</h1>
     <section>
       <?php require "modal-create-vehicle.php"; ?>
+      <?php require "modal-update-vehicle.php"; ?>
     </section>
     <div class="row g-4">
       <aside class="col-12 col-xl-2">
