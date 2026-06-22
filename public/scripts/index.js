@@ -1,5 +1,5 @@
 const tableBody = document.getElementById("table-vehicles-body");
-
+const createVehicleForm = document.getElementById("form-create-vehicle");
 async function getVehicles() {
   try {
     const result = await fetch("http://localhost:8000/api.php");
@@ -39,8 +39,7 @@ async function renderVehicles() {
 
     if (statusText === "disponível" || statusText === "em operação")
       badgeColor = "bg-success";
-    if (statusText === "em manutenção")
-      badgeColor = "bg-warning text-white";
+    if (statusText === "em manutenção") badgeColor = "bg-warning text-white";
     if (statusText === "inativo") badgeColor = "bg-danger";
 
     tr.innerHTML = `
@@ -65,5 +64,35 @@ async function renderVehicles() {
     tableBody.appendChild(tr);
   });
 }
+
+createVehicleForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(createVehicleForm);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch("http://localhost:8000/api.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      createVehicleForm.reset();
+      const modal = bootstrap.Modal.getInstance(
+        document.getElementById("modalCreateVehicle"),
+      );
+      modal.hide();
+      renderVehicles();
+    } else {
+      console.error("Erro ao criar veículo: ", response.statusText);
+    }
+  } catch (err) {
+    console.error("Falha na comunicação com a API: ", err);
+  }
+});
 
 renderVehicles();

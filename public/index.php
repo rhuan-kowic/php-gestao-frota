@@ -12,6 +12,9 @@
   </header>
   <main class="container-fluid py-4 px-3 flex-grow-1">
     <h1 class="mb-4 text-info">Painel de Controle</h1>
+    <section>
+      <?php require "modal-create-vehicle.php"; ?>
+    </section>
     <div class="row g-4">
       <aside class="col-12 col-xl-2">
         <div class="card bg-dark text-light border-info h-100">
@@ -28,7 +31,7 @@
           <div class="card-body">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
               <h2 class="h5 mb-0">Veículos</h2>
-              <button class="btn btn-info">
+              <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalCreateVehicle">
                 + Adicionar Veículo
               </button>
             </div>
@@ -56,5 +59,4 @@
     </div>
   </main>
   <?php require "footer.php"; ?>
-
 </body>
