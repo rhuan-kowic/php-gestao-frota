@@ -55,7 +55,7 @@ async function renderVehicles() {
         <button class="btn btn-sm btn-outline-primary me-1" title="Editar" onclick="editar(${vehicle.id})">
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button class="btn btn-sm btn-outline-danger" title="Excluir" onclick="deletar(${vehicle.id})">
+        <button class="btn btn-sm btn-outline-danger" title="Excluir" onclick="destroyVehicle(${vehicle.id})">
           <i class="bi bi-trash"></i>
         </button>
       </td>
@@ -94,5 +94,23 @@ createVehicleForm.addEventListener("submit", async (e) => {
     console.error("Falha na comunicação com a API: ", err);
   }
 });
+
+async function destroyVehicle(id) {
+  if (!confirm("Tem certeza que deseja excluir este veículo?")) return;
+
+  try {
+    const response = await fetch(`http://localhost:8000/api.php?id=${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      renderVehicles();
+    } else {
+      console.error("Erro ao excluir veículo: ", response.statusText);
+    }
+  } catch (err) {
+    console.error("Falha na comunicação com a API: ", err);
+  }
+}
 
 renderVehicles();
